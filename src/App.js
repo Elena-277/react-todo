@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import TodoList from './TodoList';
 import AddTodoForm from './AddTodoForm';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import styles from './TodoListItem.module.css';
 
 function App() {
   const [todoList, setTodoList] = React.useState([]);
@@ -73,6 +74,47 @@ function App() {
     return result;
   }
 
+  const postData = async (newitem) => {
+
+    let reqpayload = {
+      "fields": {
+        "title": newitem
+      }
+    };
+
+    const options = {
+      method: "POST",
+      headers: {
+        'Authorization': `Bearer ${process.env.REACT_APP_AIRTABLE_API_TOKEN}`,
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify(reqpayload)
+    };
+    const url = `https://api.airtable.com/v0/${process.env.REACT_APP_AIRTABLE_BASE_ID}/${process.env.REACT_APP_TABLE_NAME}`;
+
+    try {
+      const response = await
+        fetch(url, options);
+
+      if (!response.ok) {
+        const message = `Error: ${response.status}`;
+        throw new Error(message);
+      }
+
+      const data = await response.json();
+      const newTodo = {
+        id: data.id,
+        title: data.fields.title
+      }
+      setIsLoading(false);
+      return newTodo;
+    }
+
+    catch (error) {
+      console.log(error.message)
+    }
+  }
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -84,7 +126,10 @@ function App() {
   }, [isLoading, todoList]);
 
   function addTodo(newTodo) {
-    return setTodoList([...todoList, newTodo]);
+    (async() => {
+      let postTodo = await postData(newTodo.title);
+      return setTodoList([...todoList, postTodo]);
+    })();
   };
 
   function checkid(item, id) {
@@ -92,24 +137,15 @@ function App() {
   }
 
   function removeTodo(id) {
-    let criteria = {
-      arrid: id
-    };
-    const newTodoList = todoList.filter(checkid, criteria);
-    let success = removeitem(id);
-    if (success === true) { setTodoList(newTodoList); }
-  }
-
-  function Root() {
-    return (
-      <>
-        <h1>Todo list</h1>
-        <AddTodoForm onAddTodo={addTodo} />
-        {isLoading ? <p>Loading...</p> : null}
-        <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
-      </> 
-    )
-  }
+    (async() => {
+      let criteria = {
+        arrid: id
+      };
+      const newTodoList = todoList.filter(checkid, criteria);
+      let success = await removeitem(id);
+      if (success === true) { setTodoList(newTodoList); }
+    })();
+  };
 
   return (
     <BrowserRouter>
@@ -117,7 +153,7 @@ function App() {
         <Route path="/" 
                element={
                 <>
-                  <h1>Todo list</h1>
+                  <h1 className={styles.Heading1}>Todo list</h1>
                   <AddTodoForm onAddTodo={addTodo} />
                   {isLoading ? <p>Loading...</p> : null}
                   <TodoList todoList={todoList} onRemoveTodo={removeTodo} />
