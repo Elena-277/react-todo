@@ -1,0 +1,51 @@
+.ListItem {
+    color: #121761;
+    margin: 10px;
+    text-align: center;
+    
+  } 
+
+body {
+    background-color: #f2ffdb;
+    color: blueviolet;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    margin-left: 30px;
+    font-size: 25px;
+    text-align: center;
+    
+}
+
+.Heading1 {
+    padding: 50px;
+    font-size: 55px;
+    font-weight: 700;
+    color: #3f3f3f;
+    text-align: center;
+}
+
+.Input {
+    border: 2px solid blue;
+    
+}
+
+.Button {
+    background-image: linear-gradient(white, rgb(180, 180, 180));
+    margin: 10px;
+}
+
+.List {
+    list-style-type: none;
+}
+
+@media screen and (max-width: 600px) {
+    body {
+        background-color: antiquewhite;
+    }   
+}
+
+@media screen and (min-width: 601px) and (max-width: 1000px) {
+    body {
+        background-color: rgb(215, 240, 250);
+    }   
+}
+
