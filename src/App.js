@@ -35,6 +35,12 @@ function App() {
           title: todo.fields.title
         }
         return newTodo;
+      }).sort((objectA, objectB) => {
+        let result = 0;
+        if (objectA.title < objectB.title) {result = -1;}
+        if (objectA.title === objectB.title) {result = 0;}
+        if (objectA.title > objectB.title) {result = 1;}
+        return result;
       });
 
       setTodoList(todos);
