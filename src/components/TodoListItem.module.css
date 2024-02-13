@@ -1,17 +1,20 @@
 .ListItem {
-    color: #121761;
-    margin: 10px;
+    color: #00818d;
+    margin: 15px;
     text-align: center;
+    font-weight: bold;
+   
     
   } 
 
 body {
-    background-color: #f2ffdb;
-    color: blueviolet;
+    background-color: #edc951;
+    color: #88232c;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin-left: 30px;
     font-size: 25px;
     text-align: center;
+    font-weight: bold;
     
 }
 
@@ -19,18 +22,24 @@ body {
     padding: 50px;
     font-size: 55px;
     font-weight: 700;
-    color: #3f3f3f;
+    color: #6a4a3c;
     text-align: center;
 }
 
 .Input {
-    border: 2px solid blue;
+    border: 2px solid #6a4a3c;
+    border-radius: 5px;
+    background-color: #faecbc;
+    padding: 7px 10px;
     
 }
 
 .Button {
-    background-image: linear-gradient(white, rgb(180, 180, 180));
+    background-image: linear-gradient(#faecbc, #95b5b8);
+    font-size: 15px;
     margin: 10px;
+    border-radius: 5px;
+    
 }
 
 .List {
@@ -45,7 +54,7 @@ body {
 
 @media screen and (min-width: 601px) and (max-width: 1000px) {
     body {
-        background-color: rgb(215, 240, 250);
+        background-color: #f1d2a9;
     }   
 }
 

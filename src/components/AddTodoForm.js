@@ -12,16 +12,13 @@ function AddTodoForm({onAddTodo}) {
     }
     function handleAddTodo(event) {
         event.preventDefault();
-        onAddTodo({            
-            id: Date.now(),
-            title: todoTitle
-        });
+        onAddTodo(todoTitle);
         setTodoTitle('');
     }
     return (
         <form onSubmit={handleAddTodo}>
-            <InputWithLabel todoTitle={todoTitle} handleTitleChange ={handleTitleChange}>Title</InputWithLabel>
-            <button className={styles.Button}>Add</button>
+            <InputWithLabel todoTitle={todoTitle} handleTitleChange ={handleTitleChange}>Item</InputWithLabel>
+            <button type='submit' className={styles.Button}>Add</button>
         </form>
     );
 }
